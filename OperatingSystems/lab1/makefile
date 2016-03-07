@@ -1,16 +1,16 @@
 CC=gcc
 MAKE=C:\MinGW\bin\mingw32-make.exe
 
-static: main.o
-	ar crs staticListLib.a main.o
+static: list_management.o
+	ar crs staticListLib.a list_management.o
 	$(MAKE) cleanObjectFiles
 
-dynamic: main.o
-	$(CC) -shared -o dynamicListLib.so main.o
+dynamic: list_management.o
+	$(CC) -shared -o dynamicListLib.so list_management.o
 	$(MAKE) cleanObjectFiles
 
-main.o:
-	$(CC) -c main.c
+list_management.o:
+	$(CC) -c list_management.c
 
 clean: cleanObjectFiles
 	rm -f *.a *.so
