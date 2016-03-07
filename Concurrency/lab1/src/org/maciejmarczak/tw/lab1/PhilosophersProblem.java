@@ -10,7 +10,7 @@ public class PhilosophersProblem {
         }
 
         // 2nd solution
-        //new PhilosophersWatcher(philosophers).start();
+        new PhilosophersWatcher(philosophers).start();
     }
 }
 
@@ -23,10 +23,11 @@ class PhilosophersWatcher extends Thread {
 
     @Override
     public void run() {
-        int leftForks = 0;
-        int rightForks = 0;
+        int leftForks, rightForks;
 
         while (true) {
+            leftForks = rightForks = 0;
+
             for (int i = 0; i < 5; i++) {
                 if (philosophers[i].holdsLeftFork) leftForks++;
                 if (philosophers[i].holdsRightFork) rightForks++;
@@ -113,7 +114,7 @@ class Philosopher extends Thread {
             return;
         }*/
 
-        /*if (!holdsRightFork && !right.isTaken) {
+        if (!holdsRightFork && !right.isTaken) {
             right.take();
             holdsRightFork = true;
             System.out.println(this);
@@ -123,11 +124,11 @@ class Philosopher extends Thread {
             left.take();
             holdsLeftFork = true;
             System.out.println(this);
-        }*/
+        }
 
         // 3rd solution
 
-        synchronized (this) {
+        /*synchronized (this) {
             if (!holdsRightFork && !right.isTaken && !holdsLeftFork && !left.isTaken) {
                 right.take();
                 holdsRightFork = true;
@@ -137,7 +138,7 @@ class Philosopher extends Thread {
 
                 System.out.println(this);
             }
-        }
+        }*/
     }
 
     private void tryReleasingFork() {
