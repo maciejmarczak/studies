@@ -13,7 +13,7 @@ list_management.o:
 	$(CC) -c list_management.c
 
 clean: cleanObjectFiles
-	rm -f *.a *.so
+	rm -f *.a *.so *.exe
 
 cleanObjectFiles:
 	rm -f *.o
