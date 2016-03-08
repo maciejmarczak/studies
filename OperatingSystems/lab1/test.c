@@ -16,16 +16,16 @@ int main() {
 	#endif
 
 	PersonList* list = createList();
-    addNewPerson(list, "Maciej Marczak", "macmar94 at gmail.com", "Krakow");
-    addNewPerson(list, "Adam Nowak", "adamnowak at gmail.com", "Warszawa");
-    addNewPerson(list, "Kamil Piech", "kamilpiech at gmail.com", "Poznan");
-    addNewPerson(list, "Andrzej Hamak", "andrzhak at gmail.com", "Krolewiec");
+	addNewPerson(list, "Maciej Marczak", "macmar94 at gmail.com", "Krakow");
+	addNewPerson(list, "Adam Nowak", "adamnowak at gmail.com", "Warszawa");
+	addNewPerson(list, "Kamil Piech", "kamilpiech at gmail.com", "Poznan");
+	addNewPerson(list, "Andrzej Hamak", "andrzhak at gmail.com", "Krolewiec");
 
-    printList(list);
+	printList(list);
 
-    #ifdef DLL
-    dlclose(lib_handle);
-    #endif
+	#ifdef DLL
+	dlclose(lib_handle);
+	#endif
 
-    return 0;
+	return 0;
 }
