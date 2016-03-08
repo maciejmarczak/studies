@@ -108,6 +108,26 @@ Matrix* multiplyMatrices(Matrix* A, Matrix* B) {
     return C;
 }
 
+Matrix* solveTriangularUpper(Matrix* A, Matrix* B) {
+    Matrix* X = malloc(sizeof(Matrix));
+    X->rows = A->columns;
+    X->columns = B->columns;
+    allocateMatrixCellsMemory(X);
+
+    int i, j;
+    for(i = A->columns - 1; i >= 0; i--) {
+        double partSum = B->cells[i][0];
+
+        for(j = i + 1; j < A->columns - 1; j++) {
+            partSum -= A->cells[i][j] * X->cells[j][0];
+        }
+
+        X->cells[i][0] = partSum / A->cells[i][i];
+    }
+
+    return X;
+}
+
 int main(int argc, char** argv) {
     int matrixSize = getFromCommandLine(argc, argv);
 
@@ -127,11 +147,16 @@ int main(int argc, char** argv) {
     fillWithRandomValues(B, 10);
     printMatrix(B);
 
-    Matrix* C = multiplyMatrices(A, B);
+    gaussianElimination(A);
+    Matrix* X = solveTriangularUpper(A, B);
+    printMatrix(X);
+
+    Matrix* C = multiplyMatrices(A, X);
     printMatrix(C);
 
     freeMatrixMemory(A);
     freeMatrixMemory(B);
+    freeMatrixMemory(X);
     freeMatrixMemory(C);
 
     return 0;
