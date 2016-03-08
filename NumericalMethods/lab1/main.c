@@ -67,7 +67,7 @@ void printMatrix(Matrix* A) {
     printf("\n\n");
 }
 
-void gaussianElimination(Matrix* A) {
+void gaussianElimination(Matrix* A, Matrix* B) {
     double z;
     int i, j, k;
     for(k = 0; k < A->rows - 1; k++) {
@@ -75,8 +75,9 @@ void gaussianElimination(Matrix* A) {
             z = A->cells[i][k] / A->cells[k][k];
             A->cells[i][k] = 0.0;
             for(j = k + 1; j < A->rows; j++) {
-                A->cells[i][j] = A->cells[i][j] - z * A->cells[k][j];
+                A->cells[i][j] -= - z * A->cells[k][j];
             }
+            B->cells[i][0] -= z * B->cells[k][0];
         }
     }
 }
@@ -147,7 +148,10 @@ int main(int argc, char** argv) {
     fillWithRandomValues(B, 10);
     printMatrix(B);
 
-    gaussianElimination(A);
+    gaussianElimination(A, B);
+    printMatrix(A);
+    printMatrix(B);
+
     Matrix* X = solveTriangularUpper(A, B);
     printMatrix(X);
 
