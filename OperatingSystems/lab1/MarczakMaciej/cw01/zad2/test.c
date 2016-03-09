@@ -62,13 +62,26 @@ void fillListWithRandom(PersonList* list, int loopCounter, void (*addNewPerson)(
 	}
 }
 
-int main() {
+int main(int argc, char** argv) {
 	prevTimes* times = malloc(sizeof(prevTimes));
+	printf("Program started.\n");
 	printTimes(1, times);
 
 	#ifdef DLL
+	if(argc != 2) {
+		printf("Wrong path to the dynamic library.\n");
+		return 0;
+	}
+
+	char* path = argv[1];
+
 	void* lib_handle;
-	lib_handle = dlopen("./dynamicListLib.so", RTLD_LAZY);
+	lib_handle = dlopen(path, RTLD_LAZY);
+
+	if(lib_handle == NULL) {
+		printf("Couldn't load given library.\n");
+		return 0;
+	}
 
 	PersonList* (*createList)() = dlsym(lib_handle, "createList");
 	void (*addNewPerson)(PersonList* list, char* fullname, char* contactInfo, char* address) = dlsym(lib_handle, "addNewPerson");
@@ -77,10 +90,14 @@ int main() {
 	#endif
 
 	PersonList* list = createList();
+	printf("\n\nCreating a list and filling it with random persons. [ ]\n");
 	fillListWithRandom(list, 40000, addNewPerson);
+	printf("Creating a list and filling it with random persons. [X]\n");
 	printTimes(2, times);
 
+	printf("\n\nSorting the list. [ ]\n");
 	sortList(list, 1);
+	printf("Sorting the list. [X]\n");
 	printTimes(3, times);
 
 	free(times);
@@ -88,6 +105,9 @@ int main() {
 	#ifdef DLL
 	dlclose(lib_handle);
 	#endif
+
+	printf("\n\nQuitting program.\n");
+	printTimes(4, times);
 
 	return 0;
 }
