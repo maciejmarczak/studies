@@ -1,6 +1,0 @@
-# depslib dependency file v1.0
-1457467633 source:/home/maciej/Dokumenty/repos/NumericalMethods/lab1/main.c
-	<stdio.h>
-	<stdlib.h>
-	<time.h>
-
