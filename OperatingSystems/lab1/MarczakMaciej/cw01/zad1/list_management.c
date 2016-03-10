@@ -4,6 +4,8 @@
 
 #include "structures.h"
 
+int comparePersons(Person* p1, Person* p2, int fieldNumber);
+
 PersonList* createList() {
     PersonList* list = (PersonList*) malloc(sizeof(PersonList));
 

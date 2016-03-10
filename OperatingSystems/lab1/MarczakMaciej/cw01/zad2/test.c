@@ -85,7 +85,6 @@ int main(int argc, char** argv) {
 
 	PersonList* (*createList)() = dlsym(lib_handle, "createList");
 	void (*addNewPerson)(PersonList* list, char* fullname, char* contactInfo, char* address) = dlsym(lib_handle, "addNewPerson");
-	void (*printList)(PersonList* list) = dlsym(lib_handle, "printList");
 	void (*sortList)(PersonList* list, int fieldName) = dlsym(lib_handle, "sortList");
 	#endif
 

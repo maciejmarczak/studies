@@ -1,15 +1,15 @@
-CC=gcc
+CC = gcc
 
 static: staticLib
-	$(CC) -o test test.c ../zad1/staticListLib.a
+	$(CC) -Wall -o test test.c ../zad1/staticListLib.a
 	./test
 
 dynamic: dynamicLib
-	$(CC) -o test test.c ../zad1/dynamicListLib.so
+	$(CC) -Wall -o test test.c ../zad1/dynamicListLib.so
 	./test
 
 dynamicDLL: dynamicLib
-	$(CC) -o test test.c -DDLL -rdynamic -ldl
+	$(CC) -Wall -o test test.c -DDLL -rdynamic -ldl
 	./test ../zad1/dynamicListLib.so
 
 staticLib:

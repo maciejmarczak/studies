@@ -1,4 +1,4 @@
-CC=gcc
+CC = gcc
 
 staticLib: clean list_static
 	ar crs staticListLib.a list_management.o
@@ -9,10 +9,10 @@ dynamicLib: clean list_dynamic
 	$(MAKE) cleanObjects
 
 list_static:
-	$(CC) -c list_management.c
+	$(CC) -Wall -c list_management.c
 
 list_dynamic:
-	$(CC) -c -fPIC list_management.c
+	$(CC) -Wall -c -fPIC list_management.c
 
 clean:
 	rm -f *.a *.so *.o
