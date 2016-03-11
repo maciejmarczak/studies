@@ -5,6 +5,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <sys/time.h>
+#include <sys/resource.h>
 
 typedef struct {
     char* filename;
@@ -39,6 +41,9 @@ int compare(char* string1, char* string2) {
 }
 
 void sortUsingSys(CommandArgs* args) {
+
+    printf("\nSORTING USING SYSTEM LIBRARY\n");
+
     int rs = args->recordSize;
     int fileDescriptor = open(args->filename, O_RDWR);
 
@@ -80,6 +85,9 @@ void sortUsingSys(CommandArgs* args) {
 }
 
 void sortUsingLib(CommandArgs* args) {
+
+    printf("\nSORTING USING C LIBRARY\n");
+
     int rs = args->recordSize;
     FILE* file = fopen(args->filename, "r+");
     
@@ -122,6 +130,17 @@ void sortUsingLib(CommandArgs* args) {
     fclose(file);
 }
 
+void printTimes() {
+    struct rusage rusage;
+    getrusage(RUSAGE_SELF, &rusage);
+
+    double userTime = (double) rusage.ru_utime.tv_sec + (double) rusage.ru_utime.tv_usec / 10e6;
+    double sysTime = (double) rusage.ru_stime.tv_sec + (double) rusage.ru_stime.tv_usec / 10e6;
+
+    printf("\n- user time: %10.9f s", userTime);
+    printf("\n- syst time: %10.9f s\n\n\n", sysTime);
+}
+
 int main(int argc, char* argv[]) {
     CommandArgs* args = getCommandArgs(argc, argv);
 
@@ -132,6 +151,8 @@ int main(int argc, char* argv[]) {
 
     if(strcmp("sys", args->mode) == 0) sortUsingSys(args);
     if(strcmp("lib", args->mode) == 0) sortUsingLib(args);
+
+    printTimes();
 
     return 0;
 }
