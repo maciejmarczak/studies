@@ -252,11 +252,12 @@ float getEuclideanNorm(Matrix* M1, Matrix* M2) {
 
 void printNormInformation(int i, Matrix* X_GEN, Matrix* X_CAL) {
     printf("N = %d\n", i);
-    /*printf("X - generated:\n");
+    /*
+    printf("X - generated:\n");
     printMatrixAsVector(X_GEN);
     printf("X - calculated:\n");
     printMatrixAsVector(X_CAL);
-*/
+    */
     printf("Norm of vector X_GEN - X_CAL = %.30e\n\n\n", getEuclideanNorm(X_GEN, X_CAL));
 }
 
