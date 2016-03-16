@@ -4,7 +4,7 @@
 #include <math.h>
 
 typedef struct {
-    float** cells;
+    double** cells;
     int rows;
     int columns;
 } Matrix;
@@ -26,11 +26,11 @@ int getFromCommandLine(int argc, char** argv) {
 }
 
 void allocateMatrixCellsMemory(Matrix* A) {
-    A->cells = malloc(A->rows * sizeof(float*));
+    A->cells = malloc(A->rows * sizeof(double*));
 
     int i;
     for(i = 0; i < A->rows; i++) {
-        A->cells[i] = malloc(A->columns * sizeof(float));
+        A->cells[i] = malloc(A->columns * sizeof(double));
     }
 }
 
@@ -50,7 +50,7 @@ void fillWithRandomValues(Matrix* A, int limit) {
     int i, j;
     for(i = 0; i < A->rows; i++) {
         for(j = 0; j < A->columns; j++) {
-            A->cells[i][j] = (float) (rand() % limit);
+            A->cells[i][j] = (double) (rand() % limit);
         }
     }
 }
@@ -137,7 +137,7 @@ Matrix* multiplyMatrices(Matrix* A, Matrix* B) {
     C->columns = B->columns;
     allocateMatrixCellsMemory(C);
 
-    float tmp;
+    double tmp;
     int i, j, k;
     for(i = 0; i < C->rows; i++) {
         for(j = 0; j < C->columns; j++) {
@@ -160,7 +160,7 @@ Matrix* createMatrix(int rows, int columns) {
     return M;
 }
 
-float getEuclideanNorm(Matrix* M1, Matrix* M2) {
+double getEuclideanNorm(Matrix* M1, Matrix* M2) {
     if(!((M1->rows == M2->rows) && M1->columns == 1 && M2->columns == 1)) {
         printf("Couldn't calculate norm.\n");
         return;
@@ -168,7 +168,7 @@ float getEuclideanNorm(Matrix* M1, Matrix* M2) {
 
     int n = M1->rows;
 
-    float norm = 0.0;
+    double norm = 0.0;
 
     int i;
     for(i = 0; i < n; i++) {
@@ -180,22 +180,22 @@ float getEuclideanNorm(Matrix* M1, Matrix* M2) {
 
 void printNormInformation(int i, Matrix* X_GEN, Matrix* X_CAL) {
     printf("N = %d\n", i);
-    /*
+
     printf("X - generated:\n");
     printMatrixAsVector(X_GEN);
     printf("X - calculated:\n");
     printMatrixAsVector(X_CAL);
-    */
+
     printf("Norm of vector X_GEN - X_CAL = %.30e\n\n\n", getEuclideanNorm(X_GEN, X_CAL));
 }
 
-Matrix* jacobMethod(Matrix* A, Matrix* B, Matrix* X0, int M) {
+Matrix* jacobMethod(Matrix* A, Matrix* B, Matrix* X0, Matrix* X_GEN) {
     Matrix* RES = createMatrix(X0->rows, X0->columns);
     int n = A->rows;
     double sum;
 
     int k, i, v;
-    for(k = 0; k < M; k++) {
+    for(k = 0; ; k++) {
         for(i = 0; i < n; i++) {
 
             sum = 0.0;
@@ -209,29 +209,46 @@ Matrix* jacobMethod(Matrix* A, Matrix* B, Matrix* X0, int M) {
         for(i = 0; i < n; i++) {
             X0->cells[i][0] = RES->cells[i][0];
         }
+
+        // a
+        /*if(getEuclideanNorm(X_GEN, RES) < 0.000000006) {
+            break;
+        }*/
+
+        // b
+        if(getEuclideanNorm(multiplyMatrices(A, X0), B) < 0.000000006) {
+            break;
+        }
     }
 
     return RES;
 }
 
 void taskOne() {
-    Matrix* A = createMatrix(5, 5);
-    fillWithFirstEquation(A);
-    printMatrix(A);
 
-    Matrix* X_GEN = createMatrix(5, 1);
-    fillWithZeroOnePermutation(X_GEN);
-    printMatrix(X_GEN);
+    int i;
+    for(i = 5; i < 16; i++) {
+        Matrix* A = createMatrix(i, i);
+        fillWithFirstEquation(A);
 
-    Matrix* B = multiplyMatrices(A, X_GEN);
-    printMatrix(B);
+        Matrix* X_GEN = createMatrix(i, 1);
+        fillWithZeroOnePermutation(X_GEN);
 
-    Matrix* X0 = createMatrix(5, 1);
-    fillWithZeros(X0);
-    printMatrix(X0);
+        Matrix* B = multiplyMatrices(A, X_GEN);
 
-    Matrix* X_CAL = jacobMethod(A, B, X0, 100);
-    printMatrix(X_CAL);
+        Matrix* X0 = createMatrix(i, 1);
+        fillWithZeros(X0);
+
+        Matrix* X_CAL = jacobMethod(A, B, X0, X_GEN);
+
+        printNormInformation(i, X_GEN, X_CAL);
+
+        freeMatrixMemory(A);
+        freeMatrixMemory(X_GEN);
+        freeMatrixMemory(X_CAL);
+        freeMatrixMemory(B);
+        freeMatrixMemory(X0);
+    }
 }
 
 int main(int argc, char** argv) {
