@@ -163,7 +163,7 @@ char getCharAt(int filedes, int byteNumber) {
 
     if(fptr.l_type == F_WRLCK) {
         printf("WRITE block on that char by another process.\n");
-        return '';
+        return ' ';
     }
 
     char result[1];

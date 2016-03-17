@@ -1,0 +1,104 @@
+10000 ELEMENTS, SIZE: 4 bytes, sys
+real 67.64
+user 2.08
+sys 64.07
+
+10000 ELEMENTS, SIZE: 4 bytes, lib
+real 51.39
+user 8.03
+sys 43.01
+
+===========================================================
+
+5000 ELEMENTS, SIZE: 4 bytes, sys
+real 16.07
+user 0.07
+sys 15.04
+
+5000 ELEMENTS, SIZE: 4 bytes, lib
+real 12.44
+user 1.09
+sys 10.05
+
+===========================================================
+===========================================================
+
+10000 ELEMENTS, SIZE: 512 bytes, sys
+real 68.32
+user 2.09
+sys 65.04
+
+10000 ELEMENTS, SIZE: 512 bytes, lib
+real 55.95
+user 9.09
+sys 46.00
+
+===========================================================
+
+5000 ELEMENTS, SIZE: 512 bytes, sys
+real 17.27
+user 0.07
+sys 16.05
+
+5000 ELEMENTS, SIZE: 512 bytes, lib
+real 15.68
+user 2.09
+sys 12.08
+
+===========================================================
+===========================================================
+
+10000 ELEMENTS, SIZE: 4096 bytes, sys
+real 93.48
+user 3.00
+sys 90.05
+
+10000 ELEMENTS, SIZE: 4096 bytes, lib
+real 104.22
+user 12.05
+sys 91.07
+
+===========================================================
+
+5000 ELEMENTS, SIZE: 4096 bytes, sys
+real 22.49
+user 0.07
+sys 21.08
+
+5000 ELEMENTS, SIZE: 4096 bytes, lib
+real 25.80
+user 3.02
+sys 22.06
+
+===========================================================
+===========================================================
+
+2000 ELEMENTS, SIZE: 8192 bytes, sys
+real 5.75
+user 0.01
+sys 5.06
+
+2000 ELEMENTS, SIZE: 8192 bytes, lib
+real 6.82
+user 0.06
+sys 6.02
+
+===========================================================
+
+8000 ELEMENTS, SIZE: 8192 bytes, sys
+real 97.92
+user 2.00
+sys 95.09
+
+8000 ELEMENTS, SIZE: 8192 bytes, lib
+real 123.38
+user 10.02
+sys 113.01
+
+===========================================================
+===========================================================
+
+Powyzsze wyniki sugeruja, ze w przypadku malych rozmiarow sortowanych struktur sortowanie przebiega
+szybciej z wykorzystaniem funkcji bibliotecznych (jest to zasluga buforowania), jednak wraz ze wzrostem
+tego rozmiaru na przod wysuwaja sie funkcje systemowe. Dla 4096 i 8192 sa zdecydowanie bardziej wydajne niz
+funkcje biblioteczne.

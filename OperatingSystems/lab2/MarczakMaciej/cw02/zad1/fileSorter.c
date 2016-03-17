@@ -5,7 +5,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include <sys/time.h>
+#include <sys/times.h>
+#include <time.h>
 #include <sys/resource.h>
 
 typedef struct {
@@ -138,7 +139,13 @@ void printTimes() {
     double sysTime = (double) rusage.ru_stime.tv_sec + (double) rusage.ru_stime.tv_usec / 10e6;
 
     printf("\n- user time: %10.9f s", userTime);
-    printf("\n- syst time: %10.9f s\n\n\n", sysTime);
+    printf("\n- syst time: %10.9f s", sysTime);
+
+    clock_t clck = clock();
+
+    double realTime = (double) clck / CLOCKS_PER_SEC;
+
+    printf("\n- real time: %10.9f s\n\n\n", realTime);
 }
 
 int main(int argc, char* argv[]) {
