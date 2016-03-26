@@ -105,7 +105,7 @@ void fillWithZeros(Matrix* A) {
     int i, j;
     for(i = 0; i < rows; i++) {
         for(j = 0; j < columns; j++) {
-            A->cells[i][j] = 0.5;
+            A->cells[i][j] = 0.0;
         }
     }
 }
@@ -322,7 +322,7 @@ double getMatrixTopEigenvalue(Matrix* A) {
     }
 
     int k;
-    for(k = 0; k < 5; k++) {
+    for(k = 0; k < 1; k++) {
         Matrix* QR = qrMethod(A_K1);
         A_K1 = multiplyMatrices(&(QR[1]), &(QR[0]));
 
@@ -390,9 +390,7 @@ Matrix* jacobMethod(Matrix* A, Matrix* B, Matrix* X0, Matrix* X_GEN) {
 
 
 
-Matrix* sorMethod(Matrix* A, Matrix* B, Matrix* X0, Matrix* X_GEN) {
-    double w = 1.0001;
-
+Matrix* sorMethod(Matrix* A, Matrix* B, Matrix* X0, Matrix* X_GEN, double w) {
     Matrix* RES = createMatrix(X0->rows, X0->columns);
     double sum;
     int steps = 0;
@@ -418,7 +416,7 @@ Matrix* sorMethod(Matrix* A, Matrix* B, Matrix* X0, Matrix* X_GEN) {
         }
 
         // a
-        if(getEuclideanNorm(X_GEN, RES) < 5e-10) {
+        if(getEuclideanNorm(X_GEN, RES) < 5e-4) {
             break;
         }
 
@@ -437,12 +435,12 @@ Matrix* sorMethod(Matrix* A, Matrix* B, Matrix* X0, Matrix* X_GEN) {
 void taskOne() {
 
     int i;
-    for(i = 10; i < 5001; i++) {
-	if(!(i == 10 || i  == 50 || i == 100 || i == 5000)) continue;
+    for(i = 5000; i < 5001; i++) {
+	if(!(i == 10 || i  == 50 || i == 500 || i == 5000)) continue;
 
         Matrix* A = createMatrix(i, i);
         fillWithFirstEquation(A);
-        printf("Matrix top eigenvalue: %6.4f\n", getMatrixTopEigenvalue(getIterationMatrix(A)));
+        //printf("Matrix top eigenvalue: %6.4f\n", getMatrixTopEigenvalue(getIterationMatrix(A)));
 
         Matrix* X_GEN = createMatrix(i, 1);
         fillWithZeroOnePermutation(X_GEN);
@@ -464,11 +462,11 @@ void taskOne() {
     }
 }
 
-void taskThree() {
+void taskThree(double w) {
 
     int i;
-    for(i = 10; i < 5001; i++) {
-    if(!(i == 10 || i  == 50 || i == 500 || i == 5000)) continue;
+    for(i = 500; i < 501; i++) {
+    if(!(i == 10 || i  == 50 || i == 500 || i == 5000 || i == 10000 || i == 20000)) continue;
 
         Matrix* A = createMatrix(i, i);
         fillWithFirstEquation(A);
@@ -481,7 +479,7 @@ void taskThree() {
         Matrix* X0 = createMatrix(i, 1);
         fillWithZeros(X0);
 
-        Matrix* X_CAL = sorMethod(A, B, X0, X_GEN);
+        Matrix* X_CAL = sorMethod(A, B, X0, X_GEN, w);
 
         printNormInformation(i, X_GEN, X_CAL);
 
@@ -497,8 +495,10 @@ void taskThree() {
 int main(int argc, char** argv) {
     int matrixSize = getFromCommandLine(argc, argv);
 
-    taskOne();
-    //taskThree();
+    //taskOne();
+    taskThree(1.00);
+    //taskThree(1.50);
+    taskThree(1.00002256352);
 
     return 0;
 }
