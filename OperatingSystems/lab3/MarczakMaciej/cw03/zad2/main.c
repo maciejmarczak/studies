@@ -9,6 +9,8 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
+int TEST_MODE = 0;
+
 char *concatenateStrings(char* s1, char* s2) {
 	int totalSize = strlen(s1) + strlen(s2);
 
@@ -56,7 +58,7 @@ int get_num_of_files(char *path, char **argv) {
 			}
 
 			if(pid == 0) {
-				execl(argv[0], argv[0], new_path, NULL);
+				execl(argv[0], argv[0], new_path, (TEST_MODE == 1) ? "-w" : NULL, NULL);
 			}
 		}
 
@@ -74,18 +76,28 @@ int get_num_of_files(char *path, char **argv) {
 
 	closedir(dir);
 
+	if(TEST_MODE) {
+		sleep(15);
+	}
+
 	printf("Total number of files inside %s is: %d\n", path, num_of_files);
+
 	_exit(num_of_files);
 }
 
 int main(int argc, char **argv) {
 
-	if(argc != 2) {
-		printf("Wrong command line arguments.\n");
+	if(!(argc == 2 || argc == 3)) {
+		printf("Wrong number of command line arguments.\n");
 		exit(0);
 	}
 
 	char *path = argv[1];
+
+	if(argc == 3 && strcmp(argv[2], "-w") == 0) {
+		TEST_MODE = 1;
+	}
+
 	get_num_of_files(path, argv);
 
 	return 1;
