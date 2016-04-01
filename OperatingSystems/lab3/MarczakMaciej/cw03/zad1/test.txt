@@ -1,0 +1,393 @@
+gcc -Wall -o main main.c
+./main 10000 fork
+Back in parent process. GLOBAL_COUNTER = 0
+Parent process:
+
+- real time:          0.4 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+Child processes:
+
+- real time:          1.0 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+./main 10000 vfork
+Back in parent process. GLOBAL_COUNTER = 10000
+Parent process:
+
+- real time:          0.1 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+Child processes:
+
+- real time:          0.0 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+./main 10000 clone
+Back in parent process. GLOBAL_COUNTER = 0
+Parent process:
+
+- real time:          0.3 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+Child processes:
+
+- real time:          0.0 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+./main 10000 vclone
+Back in parent process. GLOBAL_COUNTER = 10000
+Parent process:
+
+- real time:          0.1 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+Child processes:
+
+- real time:          0.0 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+./main 40000 fork
+Back in parent process. GLOBAL_COUNTER = 0
+Parent process:
+
+- real time:          1.6 s
+- user time:          0.0 s
+- syst time:          1.1 s
+
+Child processes:
+
+- real time:          4.0 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+./main 40000 vfork
+Back in parent process. GLOBAL_COUNTER = 14945
+Parent process:
+
+- real time:          0.1 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+Child processes:
+
+- real time:          0.0 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+./main 40000 clone
+Back in parent process. GLOBAL_COUNTER = 0
+Parent process:
+
+- real time:          1.7 s
+- user time:          0.0 s
+- syst time:          1.1 s
+
+Child processes:
+
+- real time:          5.0 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+./main 40000 vclone
+Back in parent process. GLOBAL_COUNTER = 40000
+Parent process:
+
+- real time:          0.3 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+Child processes:
+
+- real time:          0.0 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+./main 100000 fork
+Back in parent process. GLOBAL_COUNTER = 0
+Parent process:
+
+- real time:          4.1 s
+- user time:          0.0 s
+- syst time:          3.1 s
+
+Child processes:
+
+- real time:         10.0 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+./main 100000 vfork
+Back in parent process. GLOBAL_COUNTER = 14945
+Parent process:
+
+- real time:          0.2 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+Child processes:
+
+- real time:          0.0 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+./main 100000 clone
+Back in parent process. GLOBAL_COUNTER = 0
+Parent process:
+
+- real time:          4.2 s
+- user time:          0.0 s
+- syst time:          4.0 s
+
+Child processes:
+
+- real time:         11.0 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+./main 100000 vclone
+Back in parent process. GLOBAL_COUNTER = 100000
+Parent process:
+
+- real time:          0.8 s
+- user time:          0.0 s
+- syst time:          0.1 s
+
+Child processes:
+
+- real time:          1.0 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+./main 200000 fork
+Back in parent process. GLOBAL_COUNTER = 0
+Parent process:
+
+- real time:          7.6 s
+- user time:          0.0 s
+- syst time:          7.0 s
+
+Child processes:
+
+- real time:         18.0 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+./main 200000 vfork
+Back in parent process. GLOBAL_COUNTER = 14945
+Parent process:
+
+- real time:          0.2 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+Child processes:
+
+- real time:          0.0 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+./main 200000 clone
+Back in parent process. GLOBAL_COUNTER = 0
+Parent process:
+
+- real time:          6.9 s
+- user time:          0.0 s
+- syst time:          6.1 s
+
+Child processes:
+
+- real time:         18.0 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+./main 200000 vclone
+Back in parent process. GLOBAL_COUNTER = 200000
+Parent process:
+
+- real time:          1.6 s
+- user time:          0.0 s
+- syst time:          1.1 s
+
+Child processes:
+
+- real time:          2.0 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+./main 300000 fork
+Back in parent process. GLOBAL_COUNTER = 0
+Parent process:
+
+- real time:         11.0 s
+- user time:          0.0 s
+- syst time:         10.1 s
+
+Child processes:
+
+- real time:         25.0 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+./main 300000 vfork
+Back in parent process. GLOBAL_COUNTER = 14945
+Parent process:
+
+- real time:          0.3 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+Child processes:
+
+- real time:          1.0 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+./main 300000 clone
+Back in parent process. GLOBAL_COUNTER = 0
+Parent process:
+
+- real time:         12.0 s
+- user time:          0.0 s
+- syst time:         11.1 s
+
+Child processes:
+
+- real time:         31.0 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+./main 300000 vclone
+Back in parent process. GLOBAL_COUNTER = 300000
+Parent process:
+
+- real time:          2.5 s
+- user time:          0.0 s
+- syst time:          2.0 s
+
+Child processes:
+
+- real time:          3.0 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+./main 400000 fork
+Back in parent process. GLOBAL_COUNTER = 0
+Parent process:
+
+- real time:         16.7 s
+- user time:          0.1 s
+- syst time:         16.0 s
+
+Child processes:
+
+- real time:         39.0 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+./main 400000 vfork
+Back in parent process. GLOBAL_COUNTER = 14945
+Parent process:
+
+- real time:          0.3 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+Child processes:
+
+- real time:          0.0 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+./main 400000 clone
+Back in parent process. GLOBAL_COUNTER = 0
+Parent process:
+
+- real time:         14.6 s
+- user time:          0.0 s
+- syst time:         14.0 s
+
+Child processes:
+
+- real time:         38.0 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+./main 400000 vclone
+Back in parent process. GLOBAL_COUNTER = 400000
+Parent process:
+
+- real time:          3.2 s
+- user time:          0.0 s
+- syst time:          3.0 s
+
+Child processes:
+
+- real time:          4.0 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+./main 500000 fork
+Back in parent process. GLOBAL_COUNTER = 0
+Parent process:
+
+- real time:         18.0 s
+- user time:          0.1 s
+- syst time:         17.0 s
+
+Child processes:
+
+- real time:         42.0 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+./main 500000 vfork
+Back in parent process. GLOBAL_COUNTER = 14944
+Parent process:
+
+- real time:          0.4 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+Child processes:
+
+- real time:          0.0 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+./main 500000 clone
+Back in parent process. GLOBAL_COUNTER = 0
+Parent process:
+
+- real time:         21.2 s
+- user time:          0.0 s
+- syst time:         20.1 s
+
+Child processes:
+
+- real time:         55.0 s
+- user time:          0.0 s
+- syst time:          0.0 s
+
+./main 500000 vclone
+Back in parent process. GLOBAL_COUNTER = 500000
+Parent process:
+
+- real time:          4.1 s
+- user time:          0.0 s
+- syst time:          3.1 s
+
+Child processes:
+
+- real time:          5.0 s
+- user time:          0.0 s
+- syst time:          0.0 s
+

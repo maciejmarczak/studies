@@ -1,4 +1,5 @@
 #define _GNU_SOURCE
+#define _XOPEN_SOURCE 9000
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -11,7 +12,7 @@
 #include <sys/resource.h>
 #include <sched.h>
 
-#define STACK_SIZE (1024 * 1024)
+#define STACK_SIZE (0x800)
 int GLOBAL_COUNTER = 0;
 double CHILDREN_REAL;
 
@@ -51,7 +52,7 @@ int childTask(void *args) {
 	_exit(EXIT_SUCCESS);
 }
 
-pid_t newChild(int methodID) {
+pid_t newChild(int methodID, char *stack) {
 	switch(methodID) {
 		case 1:
 			return fork();
@@ -60,15 +61,16 @@ pid_t newChild(int methodID) {
 		case 3:
 		case 4:
 			{
-				char *stack, *stackTop;
+				char *stackTop;
 
-				stack = malloc(STACK_SIZE * sizeof(char));
 				stackTop = stack + STACK_SIZE;
 
 				return clone(childTask, stackTop,
-					(methodID == 3) ? SIGCHLD : CLONE_VM | CLONE_VFORK | SIGCHLD, NULL);
+					(methodID == 3) ? SIGCHLD : (CLONE_VM | CLONE_VFORK | SIGCHLD), NULL);
 			}
 	}
+
+	return 0;
 }
 
 CommandArgs getCommandArgs(int argc, char **argv) {
@@ -100,18 +102,19 @@ void spawnProcesses(CommandArgs args) {
 	struct timeval t_before, t_after;
 	struct timezone tz;
 
+	char *stack = malloc(STACK_SIZE * sizeof(char));
+
 	gettimeofday(&t_before, &tz);
 	int i;
 	for(i = 0; i < args.N; i++) {
-		pid_t pid = newChild(args.methodID);
-
-		if(pid < 0) {
-			waitpid(-1, &status, 0);
-			continue;
-		}
+		pid_t pid = newChild(args.methodID, stack);
 
 		if(pid == 0) {
 			childTask(NULL);
+		}
+
+		if(pid > 0) {
+			waitpid(pid, &status, 0);
 		}
 	}
 
@@ -120,6 +123,8 @@ void spawnProcesses(CommandArgs args) {
 
 	printf("Back in parent process. GLOBAL_COUNTER = %d\n", GLOBAL_COUNTER);
 	CHILDREN_REAL = (double) (t_after.tv_sec - t_before.tv_sec);
+
+	free(stack);
 }
 
 int main(int argc, char **argv) {
