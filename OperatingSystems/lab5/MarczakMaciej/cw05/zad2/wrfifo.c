@@ -31,8 +31,14 @@ int main(int argc, char **argv) {
 	check_failure((fifo = open(argv[1], O_WRONLY)), -1, "couldn't open fifo\n");
 
 	char buffer[BUFSIZE];
+	char message[2 * BUFSIZE];
 	int exit = 0;
-	pid_t pid = getpid();
+
+	char pid_num[10];
+	sprintf(pid_num, "%ld ", (long) getpid());
+
+	time_t t;
+	char *curr_time;
 
 	do {
 
@@ -42,7 +48,20 @@ int main(int argc, char **argv) {
 			exit = 1;
 		}
 
-		check_failure(write(fifo, buffer, BUFSIZE), -1, "failed to write to fifo\n");
+		t = time(NULL);
+		curr_time = ctime(&t);
+		curr_time[strlen(curr_time) - 1] = ' ';
+
+		message[0] = 0;
+
+		strcat(message, "PID: ");
+		strcat(message, pid_num);
+		strcat(message, "\tSAVE TIME: ");
+		strcat(message, curr_time);
+		strcat(message, "\tMESSAGE: ");
+		strcat(message, buffer);
+
+		check_failure(write(fifo, exit ? buffer : message, 2 * BUFSIZE), -1, "failed to write to fifo\n");
 
 	} while (!exit);
 

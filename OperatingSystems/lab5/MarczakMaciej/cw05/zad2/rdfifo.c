@@ -32,14 +32,14 @@ int main(int argc, char **argv) {
 	int fifo;
 	check_failure((fifo = open(argv[1], O_RDONLY)), -1, "couldn't open fifo\n");
 
-	char buffer[BUFSIZE];
+	char buffer[2 * BUFSIZE];
 	char *curr_time;
 
 	int exit = 0;
 
 	do {
 
-		check_failure(read(fifo, buffer, BUFSIZE), -1, "failed to read from fifo\n");
+		check_failure(read(fifo, buffer, 2 * BUFSIZE), -1, "failed to read from fifo\n");
 
 		time_t t = time(NULL);
 		curr_time = ctime(&t);
@@ -48,7 +48,9 @@ int main(int argc, char **argv) {
 			exit = 1;
 		}
 
-		printf("%s%s\n", curr_time, buffer);
+		curr_time[strlen(curr_time) - 1] = ' ';
+
+		printf("READ TIME: %s\t%s\n", curr_time, buffer);
 
 	} while (!exit);
 
