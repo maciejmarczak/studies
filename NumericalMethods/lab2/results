@@ -1,0 +1,77 @@
+Norma Euklidesowa
+
+KRYTERIUM 2
+
+kryterium 2; p = 0.0005; w0 = [0, 0, ..., 0];
+N = 10; kroki: 3; Norma: 5.259027e-06
+N = 50; kroki: 3; Norma: 8.317611e-06
+N = 500; kroki: 3; Norma: 1.550106e-05
+N = 5000; kroki: 3; Norma: 2.355038e-05
+
+kryterium 2; p = 5e-10; w0 = [0, 0, ..., 0];
+N = 10; kroki: 7; Norma: 1.589241e-11
+N = 50; kroki: 7; Norma: 1.646370e-11
+N = 500; kroki: 7; Norma: 1.745427e-11
+N = 5000; kroki: 7; Norma: 1.883609e-11
+
+kryterium 2; p = 0.0005; w0 = [0.5, 0.5, 0.5, ..., 0.5];
+N = 10; kroki: 3; Norma: 5.523991e-06
+N = 50; kroki: 3; Norma: 8.659106e-06
+N = 500; kroki: 3; Norma: 1.586523e-05
+N = 5000; kroki: 3; Norma: 2.392235e-05
+
+kryterium 2; p = 5e-10; w0 = [0.5, 0.5, 0.5, ..., 0.5];
+N = 10; kroki: 7; Norma: 1.591530e-11
+N = 50; kroki: 7; Norma: 1.642401e-11
+N = 500; kroki: 7; Norma: 1.742975e-11
+N = 5000; kroki: 7; Norma: 1.883686e-11
+
+kryterium 2; p = 0.0005; w0 = [-5000, -5000, -5000, ..., -5000];
+N = 10; kroki: 5; Norma: 5.578306e-05
+N = 50; kroki: 5; Norma: 3.829600e-05
+N = 500; kroki: 5; Norma: 3.502294e-05
+N = 5000; kroki: 5; Norma: 3.471100e-05
+
+kryterium 2; p = 5e-10; w0 = [-5000, -5000, -5000, ..., -5000];
+N = 10; kroki: 9; Norma: 4.183096e-11
+N = 50; kroki: 9; Norma: 3.664922e-11
+N = 500; kroki: 9; Norma: 3.496613e-11
+N = 5000; kroki: 9; Norma: 3.478916e-11
+
+KRYTERIUM 1
+
+kryterium 1; p = 0.0005; w0 = [0, 0, ..., 0];
+N = 10; kroki: 2; Norma: 1.531645e-04
+N = 50; kroki: 2; Norma: 1.799807e-04
+N = 500; kroki: 2; Norma: 3.673238e-04
+N = 5000; kroki: 3; Norma: 2.355038e-05
+
+kryterium 1; p = 5e-10; w0 = [0, 0, ..., 0];
+N = 10; kroki: 6; Norma: 3.350690e-10
+N = 50; kroki: 6; Norma: 3.363538e-10
+N = 500; kroki: 6; Norma: 3.806991e-10
+N = 5000; kroki: 6; Norma: 4.608160e-10
+
+kryterium 1; p = 0.0005; w0 = [0.5, 0.5, 0.5, ..., 0.5];
+N = 10; kroki: 2; Norma: 1.530137e-04
+N = 50; kroki: 2; Norma: 1.858896e-04
+N = 500; kroki: 2; Norma: 3.808071e-04
+N = 5000; kroki: 3; Norma: 2.392235e-05
+
+kryterium 1; p = 5e-10; w0 = [0.5, 0.5, 0.5, ..., 0.5];
+N = 10; kroki: 6; Norma: 3.341709e-10
+N = 50; kroki: 6; Norma: 3.382350e-10
+N = 500; kroki: 6; Norma: 3.841665e-10
+N = 5000; kroki: 6; Norma: 4.652497e-10
+
+kryterium 1; p = 0.0005; w0 = [-5000, -5000, -5000, ..., -5000];
+N = 10; kroki: 4; Norma: 2.047753e04
+N = 50; kroki: 4; Norma: 1.588103e-04
+N = 500; kroki: 4; Norma: 1.459708e-04
+N = 5000; kroki: 4; Norma: 1.445445e-04
+
+kryterium 1; p = 5e-10; w0 = [-5000, -5000, -5000, ..., -5000];
+N = 10; kroki: 8; Norma: 1.059204e-10
+N = 50; kroki: 8; Norma: 1.049600e-10
+N = 500; kroki: 8; Norma: 1.029086e-10
+N = 5000; kroki: 8; Norma: 1.026092e-10

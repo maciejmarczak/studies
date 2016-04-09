@@ -1,0 +1,21 @@
+Kompilacja i uruchomienie za pomocą makefile: make
+Wyczyszczenie folderu: make clean
+
+Algorytm eliminacji Gaussa: linia 166 gaussianElimination;
+Mnożenie macierzy: linia 181 multiplyMatrices;
+Rozwiązywanie układu z macierzą trójkątną górną: linia 207 solveTriangularUpper;
+Wyznaczanie normy euklidesowej: linia 235 getEuclideanNorm;
+Rozwiązywanie układu z macierzą wstęgową: funkcja taskThree;
+
+
+Zadania: 	1 - linia 264 taskOne;
+			2 - linia 291 taskTwo;
+			3 - linia 331 taskThree;
+
+Zmiana parametrów zadania:
+
+Fragment odpowiadający za rozmiary macierzy:
+for(i = 5; i <= 2000; i++) {
+        if(!(i == 5 || i == 50 || i == 100 || i == 500 || i == 1000 || i == 2000)) continue;
+
+Wykonanie odpowiedniego zadania poprzez odkomentowanie wywołania tego zadania w funkcji main.

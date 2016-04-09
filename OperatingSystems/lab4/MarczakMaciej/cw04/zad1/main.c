@@ -19,7 +19,7 @@ typedef struct {
 
 args get_command_arguments(int argc, char **argv) {
 	if(argc != 3) {
-		printf("There should be two command line arguments.\n");
+		printf("There should be two command line arguments. Default values set.\n");
 		exit(-1);
 	}
 

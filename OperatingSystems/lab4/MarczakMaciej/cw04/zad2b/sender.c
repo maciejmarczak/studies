@@ -5,26 +5,28 @@
 
 int SIGNALS_RECEIVED = 0;
 int NUM_OF_SIGNALS;
-
-typedef struct {
-	int num_of_signals;
-
-	// for b) and c)
-	int confirm_needed;
-	int real_time_signals;
-} command_args;
+int INC = 0;
+pid_t PID;
 
 // temporary version of function, to be upgraded
-command_args get_command_args(int argc, char **argv) {
-	command_args args;
+void get_command_args(int argc, char **argv) {
+	if(argc != 2) {
+		NUM_OF_SIGNALS = 1000;
+		printf("Number of signals set to default value of 1000.\n");
+		return;
+	}
 
 	NUM_OF_SIGNALS = atoi(argv[1]);
-
-	return args;
 }
 
 void signal_received(int sig) {
 	SIGNALS_RECEIVED++;
+	if(++INC <= NUM_OF_SIGNALS) {
+		kill(PID, SIGUSR1);
+	}
+	else {
+		kill(PID, SIGUSR2);
+	}
 }
 
 void finish_receiving(int sig) {
@@ -33,25 +35,21 @@ void finish_receiving(int sig) {
 }
 
 int main(int argc, char **argv) {
-	command_args args = get_command_args(argc, argv);
+	get_command_args(argc, argv);
 
 	char line[10];
 	FILE *cmd = popen("pidof -s catcher", "r");
 
 	fgets(line, 10, cmd);
-	pid_t pid = strtoul(line, NULL, 10);
+	PID = strtoul(line, NULL, 10);
 
 	pclose(cmd);
 
 	signal(SIGUSR1, signal_received);
 	signal(SIGUSR2, finish_receiving);
 
-	int i;
-	for(i = 0; i < NUM_OF_SIGNALS; i++) {
-		kill(pid, SIGUSR1);
-	}
-
-	kill(pid, SIGUSR2);
+	INC++;
+	kill(PID, SIGUSR1);
 
 	while(1) {
 
