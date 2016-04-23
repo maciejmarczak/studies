@@ -1,0 +1,7 @@
+all:
+	gcc producent.c -o producent.o -c
+	gcc consumer.c -o consumer.o -c
+	gcc common_functions.c -o common_functions.o -c
+	gcc -o consumer consumer.o common_functions.o
+	gcc -o producent producent.o common_functions.o
+ 	gcc -o main main.c

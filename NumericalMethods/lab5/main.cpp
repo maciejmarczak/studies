@@ -6,23 +6,35 @@ using namespace std;
 
 int N;
 
-const int START = - 4;
-const int END = 4;
+int QUADRATIC_SPLINE = 1;
+int CUBIC_SPLINE = 2;
+
+const int START = - 2 * M_PI;
+const int END = 2 * M_PI;
 
 double function_value(double x) {
-	return sin(2 * x);
+	return 10 + pow(x, 2) / 2 - 10 * cos(2 * x);
 }
 
 double function_1st_der(double x) {
-	return 2 * cos(2 * x);
+	return x + 20 * sin(2 * x);
 }
 
 double function_2nd_der(double x) {
-	return - 4 * sin(2 * x);
+	return 40 * cos(2 * x) + 1;
 }
 
-double *quadratic_spline() {
+double *quadratic_coefficents(double *t, double *y) {
+	double *z = new double[N];
 
+	z[0] = function_1st_der(t[0]);
+	//z[0] = 150.0;
+
+	for (int i = 0; i < N - 1; i++) {
+		z[i + 1] = - z[i] + 2 * ((y[i + 1] - y[i]) / (t[i + 1] - t[i]));
+	}
+
+	return z;
 }
 
 double *cubic_coefficents(double *t, double *y) {
@@ -38,20 +50,35 @@ double *cubic_coefficents(double *t, double *y) {
 	u[1] = 2 * (h[0] + h[1]);
 	v[1] = b[1] - b[0];
 
-	for (int i = 2; i < N - 1; i++) {
+	for (int i = 2; i < N; i++) {
 		u[i] = 2 * (h[i - 1] + h[i]) - pow(h[i - 1], 2) / u[i - 1];
 		v[i] = b[i] - b[i - 1] - h[i - 1] * v[i - 1] / u[i - 1];
 	}
 
-	z[N - 1] = 0.0;
+	// natural
+	z[N - 1] = 150.0;
+	//z[N - 1] = function_2nd_der(t[N - 1]);
+
 
 	for (int i = N - 2; i >= 1; i--) {
 		z[i] = (v[i] - h[i] * z[i + 1]) / u[i];
 	}
 
-	z[0] = 0.0;
+	// natural
+	z[0] = 150.0;
+	//z[0] = function_2nd_der(t[0]);
 
 	return z;
+}
+
+double quadratic_value(int i, double x, double *z, double *t, double *y) {
+	double result;
+
+	result = ((z[i + 1] - z[i]) / (2 * (t[i + 1] - t[i]))) * pow(x - t[i], 2);
+	result += z[i] * (x - t[i]);
+	result += y[i];
+
+	return result;
 }
 
 double cubic_value(int i, double x, double *z, double *t, double *y) {
@@ -65,7 +92,7 @@ double cubic_value(int i, double x, double *z, double *t, double *y) {
 	return result;
 }
 
-void cubic_spline(double step, double *z, double *t, double *y) {
+void calculate_spline(int type, double step, double *z, double *t, double *y) {
 	double plot_step = (fabs(START) + fabs(END)) / 500;
 	double curr = START;
 
@@ -73,17 +100,32 @@ void cubic_spline(double step, double *z, double *t, double *y) {
 
 	int i = 0;
 
+	double (*fun)(int, double, double*, double*, double*);
+
+	fun = (type == CUBIC_SPLINE) ? cubic_value : quadratic_value;
+
+	double abs_err = 0.0;
+	double ls_err = 0.0;
+
 	while (curr <= END) {
 
 		i = (int) ((curr - START) / step);
 
 		fval = function_value(curr);
-		splval = cubic_value(i, curr, z, t, y);
+		splval = fun(i, curr, z, t, y);
+
+		double abs_val = abs(fval - splval);
+
+		if (abs_val > abs_err) abs_err = abs_val;
+
+		ls_err += pow(abs_val, 2);
 
 		cout << curr << " " << fval << " " << splval << endl;
 
 		curr += plot_step;
 	}
+
+	cout << "abs_err: " << abs_err << "\tls_err: " << ls_err / N << endl;
 }
 
 int main(int argc, char **argv) {
@@ -93,7 +135,7 @@ int main(int argc, char **argv) {
 		return -1;
 	}
 
-	double step = (fabs(START) + fabs(END)) / N;
+	double step = (fabs(START) + fabs(END)) / (N - 1);
 	double t[N], y[N];
 
 	for (int i = 0; i < N; i++) {
@@ -101,9 +143,10 @@ int main(int argc, char **argv) {
 		y[i] = function_value(t[i]);
 	}
 
-	//quadratic_spline();
+
 	double *z = cubic_coefficents(t, y);
-	cubic_spline(step, z, t, y);
+	//double *z = quadratic_coefficents(t, y);
+	calculate_spline(CUBIC_SPLINE, step, z, t, y);
 
 	return 0;
 }

@@ -1,6 +1,7 @@
 all: rdfifo wrfifo
-	./rdfifo test
-	./wrfifo test
+	xterm -e ./rdfifo test &
+	sleep 0.5
+	xterm -e ./wrfifo test &
 
 rdfifo:
 	gcc -Wall -o rdfifo rdfifo.c

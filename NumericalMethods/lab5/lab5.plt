@@ -1,6 +1,6 @@
 set key nobox above vertical maxrows 1
 
-#set xrange [-5.0:5.0]
+#set xrange [-6.0:6.0]
 #set yrange [0.0:3.0]
 
 set xlabel 'x'

@@ -1,0 +1,116 @@
+APROKSYMACJA WIELOMIANAMI ALGEBRAICZNYMI
+
+ILOŚĆ PUNKTÓW: 5
+
+ST WIELOMIANU:
+
+2
+abs_err: 19.9968	ls_err: 15000
+
+3
+abs_err: 19.9968	ls_err: 15000
+
+4
+abs_err: 19.9968	ls_err: 15000
+
+
+ILOŚĆ PUNKTÓW: 10
+
+2
+abs_err: 12.019		ls_err: 2614.08
+
+3
+abs_err: 12.019		ls_err: 2614.08
+
+4
+abs_err: 12.4106	ls_err: 2359.6
+
+5
+abs_err: 12.4106	ls_err: 2359.6
+
+8
+abs_err: 41.6714	ls_err: 10999
+
+ILOŚĆ PUNKTÓW: 20
+
+2
+abs_err: 11.3297	ls_err: 1266
+
+3
+abs_err: 11.3297	ls_err: 1266
+
+4
+abs_err: 11.9136	ls_err: 1169.86
+
+5
+abs_err: 11.9136	ls_err: 1169.86
+
+8
+abs_err: 11.5508	ls_err: 966.567
+
+15
+abs_err: 8.43019	ls_err: 83.3009
+
+ILOŚĆ PUNKTÓW: 30
+
+2
+abs_err: 11.043	ls_err: 837.231
+
+3
+abs_err: 11.043	ls_err: 837.231
+
+4
+abs_err: 11.8531	ls_err: 779.265
+
+5
+abs_err: 11.8531	ls_err: 779.265
+
+8
+abs_err: 11.6424	ls_err: 636.026
+
+15
+abs_err: 2.06012	ls_err: 3.52664
+
+20
+abs_err: 0.0910058	ls_err: 0.00402485
+
+25
+abs_err: 6.89877	ls_err: 11.3037
+
+30
+abs_err: 14.0475	ls_err: 69.5274
+
+ILOŚĆ PUNKTÓW: 50
+
+2
+abs_err: 10.782	ls_err: 499.856
+
+3
+abs_err: 10.782	ls_err: 499.856
+
+4
+abs_err: 11.7984	ls_err: 467.177
+
+5
+abs_err: 11.7984	ls_err: 467.177
+
+8
+abs_err: 11.5622	ls_err: 376.16
+
+15
+abs_err: 0.955995	ls_err: 1.18421
+
+20
+abs_err: 0.0121593	ls_err: 3.44325e-05
+
+25
+abs_err: 0.0769821	ls_err: 0.000580295
+
+30
+abs_err: 0.73025	ls_err: 0.071683
+
+40
+abs_err: 1.8541	ls_err: 0.403059
+
+50
+abs_err: 214.203	ls_err: 6843.44
