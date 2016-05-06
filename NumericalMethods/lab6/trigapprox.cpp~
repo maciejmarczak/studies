@@ -1,0 +1,96 @@
+#include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
+
+double k = 1.0;
+double min = 0, max = 2 * M_PI;
+
+double bl_max = 0.0;
+
+int n, stop, L = n/2;
+
+double *x, *y, *a, *b;
+
+double f(double x) {
+	return 10 + pow(x, 2) / 2 - 10 * cos(2 * x);
+}
+
+void alloc_tab() {
+	x = new double[ n ];
+	y = new double[ n ];
+	a = new double[ stop + 1 ];
+	b = new double[ stop + 1 ];
+}
+
+
+void init_xy() {
+	for (int i = 0; i < n; i++) {
+		x[i] = 2 * M_PI * i / n;
+		y[i] = f( x[i] );
+	}
+}
+
+double blad(){
+	double sumaKwadr = 0;
+	
+	for (int i = 0; i < 1024; i++) {
+		double x1 = 2 * M_PI * i / 1024.0;
+		double approx = a[0] / 2;
+		
+		for(int i = 1; i <= stop; i++) {
+			approx += a[i] * cos(i * x1) + b[i] * sin(i * x1);
+		}
+
+	sumaKwadr += (approx - f(x1)) * (approx - f(x1));
+
+	if (abs(approx - f(x1)) > bl_max) bl_max = abs(approx - f(x1));
+
+	}
+	return (sumaKwadr/1024);
+}
+
+int main(int argc, char* argv[]) {
+
+	if (argc < 3) {
+		return 1;
+	}
+
+	n = atoi(argv[1]);
+	stop = atoi(argv[2]);
+	L = n/2;
+	
+	alloc_tab();
+	init_xy();
+
+	for (int j = 0; j <= stop; j++) {
+
+		long double sum1 = 0, sum2 = 0;
+
+		for (int i=0;i<n;i++){
+			sum1 += y[i] * cos(2 * M_PI * i * j / (double) n);
+			sum2 += y[i] * sin(2 * M_PI * i * j / (double) n);
+		}
+
+		a[j] = 2 * sum1 / (double) n;
+		b[j] = 2 * sum2 / (double) n;
+	}
+
+	printf("set terminal png\n");
+	printf("set output 'tryg_%03i_%03i.png'\n", n, stop);
+	blad();
+	printf("set title 'blad sr. %E   max. %f'\n", blad(), bl_max);
+	printf("set xrange [%g:%g]\n", min, max);
+	printf("g(x) = %.20E", a[0] / 2);
+
+	for(int i = 1; i <= stop; i++) {
+		printf("%+le * cos(%i * x) %+le * sin(%i * x)", a[i], i, b[i], i);
+	}
+
+	// 10 + pow(x, 2) / 2 - 10 * cos(2 * x);
+	printf("\n\nplot 10 + x * x / 2 - 10 * cos(2 * x), g(x) title 'przyblizenie', '-' title 'wezly'\n");
+	
+	for(int i = 0 ; i < n ; i++)
+		printf("%f %f\n", x[i], y[i]);
+	
+	printf("e\n");
+}

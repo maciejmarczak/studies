@@ -11,7 +11,7 @@ int main() {
 
     sem_t* sem = sem_open(SEM_NAME, 0);
 
-    int init_val = random() % MAX_RAND;
+    int init_val;
 
     int pid = (int) getpid();
 
@@ -19,6 +19,7 @@ int main() {
     while(1) {
 
         sem_wait(sem);
+        init_val = random() % MAX_RAND;
 
         int j, k, r = rand() % (ARRAY_SIZE / 3);
         for (j = 0; j < r; j++) {

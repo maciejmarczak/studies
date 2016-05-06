@@ -9,7 +9,7 @@ void exit_fun() {
 }
 
 int main() {
-    // TODO: read from command line
+    srand(time(NULL));
     int m = 5, n = 10;
 
     atexit(exit_fun);
@@ -28,6 +28,8 @@ int main() {
             execl("./writer", "writer", (char *) 0);
             exit(1);
         }
+
+        sleep(1);
     }
 
     for (i = 0; i < n; i++) {
@@ -35,6 +37,8 @@ int main() {
             execl("./reader", "reader", (char *) 0);
             exit(1);
         }
+
+        sleep(1);
     }
 
     while(1) {

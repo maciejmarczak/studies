@@ -8,10 +8,13 @@
 using namespace std;
 
 // polynomial degree and number of points
-const int polynomialDegree = 50;
-const int N = 50;
+const int polynomialDegree = 20;
+const int N = 42;
+double APP_STEP = 0.0;
 
 double A[ polynomialDegree + 1 ];
+double T_A_VALS[ polynomialDegree + 1 ];
+double T_B_VALS[ polynomialDegree + 1 ];
 
 double function_value(double x) {
 	return 10 + pow(x, 2) / 2 - 10 * cos(2 * x);
@@ -23,6 +26,17 @@ double approx_value(double x) {
 	int i;
 	for (i = 0; i <= polynomialDegree; i++) {
 		res += A[i] * pow(x, i);
+	}
+
+	return res;
+}
+
+double approx_trig_value(double x) {
+	double res = T_A_VALS[0] / 2;
+
+	int i;
+	for (i = 1; i <= polynomialDegree; i++) {
+		res += (T_A_VALS[i] * cos(i * x)) + (T_B_VALS[i] * sin(i * x));
 	}
 
 	return res;
@@ -65,6 +79,7 @@ int main(int argc, char **argv) {
 
 	double X[N], Y[N];
 	double jump = (END - START) / (N - 1);
+	APP_STEP = jump / 2;
 
 	ofstream myfile;
 	myfile.open ("nodes.txt");

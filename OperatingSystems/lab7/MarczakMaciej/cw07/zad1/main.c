@@ -22,10 +22,20 @@ void finish_tasks(int sig) {
     exit(1);
 }
 
-int main() {
+int main(int argc, char **argv) {
 
     // TODO: read from command lines
-    int m = 3, n = 2;
+
+    int m, n;
+
+    if (argc != 3 || atoi(argv[1]) == 0 || atoi(argv[2]) == 0) {
+        m = 3;
+        n = 2;
+    } else {
+        m = atoi(argv[1]);
+        n = atoi(argv[2]);
+    }
+
     N = m + n;
 
     childs = malloc( (m + n) * sizeof(int) );

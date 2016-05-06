@@ -1,14 +1,20 @@
 #include "headers.h"
 
-int main() {
-    int x = 500;
+int main(int argc, char **argv) {
+    srand(time(NULL));
 
-    int mem_fd = shm_open(MEM_NAME, O_CREAT | O_RDONLY, 0700);
+    int x = 0;
+    if (argc == 2) x = atoi(argv[1]);
+    if (x == 0) x = rand() % MAX_RAND;
 
-    int *array = (int *) mmap(NULL, ARRAY_SIZE * sizeof(int),
+    int mem_fd = shm_open(MEM_NAME, O_CREAT | O_RDONLY, 0777);
+
+    int *array = (int *) mmap(0, ARRAY_SIZE * sizeof(int),
         PROT_READ, MAP_SHARED, mem_fd, 0);
 
-    sem_t* sem = sem_open(SEM_NAME, O_RDONLY);
+    int *mov = array;
+
+    sem_t* sem = sem_open(SEM_NAME, 0);
 
     int pid = (int) getpid();
 
@@ -19,7 +25,7 @@ int main() {
 
         int j, n = 0;
         for (j = 0; j < ARRAY_SIZE; j++) {
-            if (array[j] == x) n++;
+            if (mov[j] == x) n++;
         }
 
         printf("(PID: %d\tTIMESTAMP: %u)\t"

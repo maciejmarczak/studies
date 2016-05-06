@@ -1,5 +1,5 @@
 all: consumer producent main
-	./main
+	./main 5 6
 
 consumer: consumer.o common_functions.o
 	gcc -o consumer consumer.o common_functions.o
