@@ -6,6 +6,7 @@
 #include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <ftw.h>
 #define _GNU_SOURCE
 
 void print_usage() {
