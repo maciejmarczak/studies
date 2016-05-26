@@ -92,5 +92,5 @@ int main(int argc, char* argv[]) {
 	for(int i = 0 ; i < n ; i++)
 		printf("%f %f\n", x[i], y[i]);
 	
-	printf("e\n");
+	printf("\n");
 }
